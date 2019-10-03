@@ -30,9 +30,11 @@ Page({
   },
 
   _loadData: function(){
+    console.log(cart.getCartTotalCounts())
     product.getDetailInfo(this.data.id, (data)=> {
       this.setData({
-        product: data
+        product: data,
+        cartTotalCounts: cart.getCartTotalCounts()
       })
     });
   },
@@ -56,6 +58,11 @@ Page({
 
   onAddingToCartTap: function(event){
     this.addToCart();
+    // 更新右上角购物车商品数量
+    var counts = this.data.cartTotalCounts + this.data.productCounts;
+    this.setData({
+      cartTotalCounts: cart.getCartTotalCounts()
+    })
   },
 
   addToCart:function(){

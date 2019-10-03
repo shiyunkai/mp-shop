@@ -32,7 +32,7 @@ class Cart extends Base{
       cartData[isHasInfo.index].counts += counts;
     }
     // 更新本地购物车
-    wx.setStorageSync(this._isHasThatOne, cartData);
+    wx.setStorageSync(this._storageKeyName, cartData);
   }
 
   /**
@@ -44,6 +44,27 @@ class Cart extends Base{
       res = [];
     }
     return res;
+  }
+
+  /**
+   *  获取购物车商品总数量
+   *  flag 为true时表示只计算商品被选中时的购物车商品数量
+   */
+  getCartTotalCounts(flag){
+    var data = this.getCartDataFromLocal();
+    var counts = 0;
+
+    for(let i = 0; i< data.length; i++){
+      if(flag){
+        if(data[i].selectStatus){
+          counts += data[i].counts;
+        }
+      }else{
+        counts += data[i].counts;
+      }
+    }
+
+    return counts;
   }
 
 /**
