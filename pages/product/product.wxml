@@ -4,7 +4,7 @@
   <!-- 商品详情上半部分 -->
   <view class="detail-header-box">
     <!-- 右上角小购物车 -->
-    <view class="fixed-btns-box">
+    <view class="fixed-btns-box" bindtap="onCartTap">
       <view class="fiexd-cart">
         <image src="../../imgs/icon/cart@top.png"></image>
         <view wx:if="{{cartTotalCounts > 0}}">

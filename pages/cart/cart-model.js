@@ -67,6 +67,63 @@ class Cart extends Base{
     return counts;
   }
 
+  /**
+   *  增加购物车商品数量
+   */
+  addCounts(id){
+    this._changeCounts(id,1);
+  }
+
+  /**
+   *  减少购物车商品数量
+   */
+  cutCounts(id) {
+    this._changeCounts(id, -1);
+  }
+
+  /**
+   *  删除购物车商品
+   */
+  delete(ids){
+    if( !(ids instanceof Array)){
+      // 转换成数组
+      ids = [ids];
+    }
+
+    var cartData = this.getCartDataFromLocal();
+    for (let i = 0; i < ids.length; i++){
+      var hasInfo = this._isHasThatOne(ids[i], cartData);
+      if(hasInfo.index != -1){
+        cartData.splice(hasInfo.index, 1);
+      }
+    }
+    // 更新
+    wx.setStorageSync(this._storageKeyName, cartData);
+  }
+
+  /**
+   *  本地缓存 保存/更新
+   */
+  execSetStorageSync(data){
+    wx.setStorageSync(this._storageKeyName, data);
+  }
+
+  /**
+   *  修改购物车商品数量
+   *  params:
+   *  id - {int} 商品id
+   */
+  _changeCounts(id, counts){
+    var cartData = this.getCartDataFromLocal(),
+      hasInfo = this._isHasThatOne(id, cartData);
+      if(hasInfo.index != -1){
+          if(hasInfo.data.counts > 1){
+            cartData[hasInfo.index].counts += counts;
+          }
+      }
+    wx.setStorageSync(this._storageKeyName, cartData);
+  }
+
 /**
  *  判断商品是否已经存在购物车中，并且返回这个商品的数据以及所在数组中的序号
  */
