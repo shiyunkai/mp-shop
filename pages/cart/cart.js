@@ -136,6 +136,17 @@ Page({
   },
 
   /**
+   * 下单
+   */
+  submitOrder: function(event){
+    // 跳转页面
+    wx.navigateTo({
+      url: '../order/order?account=' + this.data.account + '&from=cart',
+    })
+  },
+
+
+  /**
    *  根据商品id得到 商品所在购物车列表中的下标
    */
   _getProductIndexById: function(id){

@@ -62,7 +62,9 @@ Page({
     })
   },
 
-
+  /**
+   *  点击加入购物车
+   */
   onAddingToCartTap: function(event) {
     //防止快速点击
     if (this.data.isFly) {
@@ -70,11 +72,6 @@ Page({
     }
     this.addToCart();
     this._flyToCartEffect(event);
-    // 更新右上角购物车商品数量
-    // var counts = this.data.cartTotalCounts + this.data.productCounts;
-    // this.setData({
-    //   cartTotalCounts: cart.getCartTotalCounts()
-    // })
   },
 
   addToCart: function() {
@@ -101,14 +98,14 @@ Page({
   },
 
   /*加入购物车动效*/
-  _flyToCartEffect: function(events) {
+  _flyToCartEffect: function (events) {
     //获得当前点击的位置，距离可视区域左上角
     var touches = events.touches[0];
     var diff = {
-        x: '25px',
-        y: 25 - touches.clientY + 'px'
-      },
-      style = 'display: block;-webkit-transform:translate(' + diff.x + ',' + diff.y + ') rotate(350deg) scale(0)'; //移动距离
+      x: '25px',
+      y: 25 - touches.clientY + 'px'
+    },
+      style = 'display: block;-webkit-transform:translate(' + diff.x + ',' + diff.y + ') rotate(350deg) scale(0)';  //移动距离
     this.setData({
       isFly: true,
       translateStyle: style
@@ -117,7 +114,7 @@ Page({
     setTimeout(() => {
       that.setData({
         isFly: false,
-        translateStyle: '-webkit-transform: none;', //恢复到最初状态
+        translateStyle: '-webkit-transform: none;',  //恢复到最初状态
         isShake: true,
       });
       setTimeout(() => {

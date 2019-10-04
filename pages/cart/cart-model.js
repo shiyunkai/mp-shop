@@ -37,11 +37,22 @@ class Cart extends Base{
 
   /**
    * 从缓存中读取几辆数据
+   *  flag: 是否只读取已选择的购物车
    */
-  getCartDataFromLocal(){
+  getCartDataFromLocal(flag){
     var res = wx.getStorageSync(this._storageKeyName);
     if(!res){
       res = [];
+    }
+    // 在下单的时候过滤不下单的商品
+    if(flag){
+      var newRes = [];
+      for (let i=0; i<res.length; i++){
+        if(res[i].selectStatus){
+          newRes.push(res[i]);
+        }
+      }
+      res = newRes;
     }
     return res;
   }

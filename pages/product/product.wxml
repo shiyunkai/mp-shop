@@ -5,7 +5,7 @@
   <view class="detail-header-box">
     <!-- 右上角小购物车 -->
     <view class="fixed-btns-box" bindtap="onCartTap">
-      <view class="fiexd-cart">
+      <view class="fiexd-cart {{isShake?'animate':''}}">
         <image src="../../imgs/icon/cart@top.png"></image>
         <view wx:if="{{cartTotalCounts > 0}}">
           {{cartTotalCounts}}
