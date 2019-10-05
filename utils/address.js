@@ -40,13 +40,28 @@ class Address extends Base{
   submitAddress(data, callback) {
     data = this._setUpAddress(data);
     var param = {
-      url: 'address',
+      url: 'address?XDEBUG_SESSION_START==19983',
       type: 'post',
       data: data,
       sCallback: function (res) {
         callback && callback(true, res);
       }, eCallback(res) {
         callback && callback(false, res);
+      }
+    };
+    this.request(param);
+  }
+
+  /*获得我自己的收货地址*/
+  getAddress(callback) {
+    var that = this;
+    var param = {
+      url: 'address',
+      sCallback: function (res) {
+        if (res) {
+          res.totalDetail = that.setAddressInfo(res);
+          callback && callback(res);
+        }
       }
     };
     this.request(param);
@@ -59,7 +74,8 @@ class Address extends Base{
       province: res.provinceName,
       city: res.cityName,
       country: res.countyName,
-      mobile: res.telNumber,
+      //mobile: res.telNumber,
+      mobile: '18869712949',
       detail: res.detailInfo
     };
     return formData;
